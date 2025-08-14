@@ -1,46 +1,127 @@
-<div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <div class="flex items-center justify-between mb-4">
-        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">System Settings</h5>
+<%- include('../layouts/header', { 
+    title: 'Admin Settings',
+    isAuthenticated: true,
+    isAdmin: true,
+    userInitials: 'AD'
+}); %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">System Settings</h1>
+        <p class="mt-2 text-gray-600">Configure application settings and preferences</p>
     </div>
-    
-    <div class="flow-root">
-        <form>
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
+
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900">General Settings</h2>
+        </div>
+        <div class="px-6 py-4">
+            <form class="space-y-6">
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div>
+                        <label for="app_name" class="block text-sm font-medium text-gray-700">Application Name</label>
+                        <input type="text" name="app_name" id="app_name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="Disaster Management System">
+                    </div>
+                    <div>
+                        <label for="timezone" class="block text-sm font-medium text-gray-700">Timezone</label>
+                        <select id="timezone" name="timezone" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option selected>(UTC+00:00) Coordinated Universal Time</option>
+                            <option>(UTC-05:00) Eastern Time (US & Canada)</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div>
-                    <label for="sync_frequency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Auto Sync Frequency</label>
-                    <select id="sync_frequency" name="sync_frequency" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="1">Every 1 hour</option>
-                        <option value="3" selected>Every 3 hours</option>
-                        <option value="6">Every 6 hours</option>
-                        <option value="12">Every 12 hours</option>
-                        <option value="24">Every 24 hours</option>
-                    </select>
+                    <label for="api_key" class="block text-sm font-medium text-gray-700">API Key</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input type="text" name="api_key" id="api_key" class="block w-full pr-10 border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md" value="sk_test_51JXyY2..." readonly>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <button type="button" class="text-blue-600 hover:text-blue-800 text-sm font-medium" onclick="document.getElementById('api_key').type = document.getElementById('api_key').type === 'password' ? 'text' : 'password'">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
+
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Alert Notifications</label>
+                        <div class="mt-2 space-y-2">
+                            <div class="flex items-center">
+                                <input id="email_notifications" name="email_notifications" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
+                                <label for="email_notifications" class="ml-2 block text-sm text-gray-700">Email Notifications</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="sms_notifications" name="sms_notifications" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="sms_notifications" class="ml-2 block text-sm text-gray-700">SMS Notifications</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="push_notifications" name="push_notifications" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
+                                <label for="push_notifications" class="ml-2 block text-sm text-gray-700">Push Notifications</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="notification_email" class="block text-sm font-medium text-gray-700">Notification Email</label>
+                        <input type="email" name="notification_email" id="notification_email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="admin@disastermgmt.com">
+                    </div>
+                </div>
+
                 <div>
-                    <label for="default_severity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default Severity Filter</label>
-                    <select id="default_severity" name="default_severity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="all">All alerts</option>
-                        <option value="severe">Severe only</option>
-                        <option value="moderate">Moderate and above</option>
-                        <option value="minor">All severities</option>
-                    </select>
+                    <label for="logo" class="block text-sm font-medium text-gray-700">Application Logo</label>
+                    <div class="mt-1 flex items-center">
+                        <span class="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                            <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </span>
+                        <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Change
+                        </button>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="mb-6">
-                <label for="api_key" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">GDACS API Key</label>
-                <input type="password" id="api_key" name="api_key" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
-            </div>
-            
-            <div class="flex items-start mb-6">
-                <div class="flex items-center h-5">
-                    <input id="enable_notifications" name="enable_notifications" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" checked>
+
+                <div class="pt-5">
+                    <div class="flex justify-end">
+                        <button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cancel
+                        </button>
+                        <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Save
+                        </button>
+                    </div>
                 </div>
-                <label for="enable_notifications" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Enable email notifications</label>
+            </form>
+        </div>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="bg-white shadow rounded-lg overflow-hidden mt-8 border border-red-200">
+        <div class="px-6 py-4 border-b border-red-200 bg-red-50">
+            <h2 class="text-lg font-medium text-red-800">Danger Zone</h2>
+        </div>
+        <div class="px-6 py-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div class="mb-4 sm:mb-0">
+                    <h3 class="text-md font-medium text-gray-900">Clear All Data</h3>
+                    <p class="text-sm text-gray-500">Permanently remove all alerts and user data from the system.</p>
+                </div>
+                <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Clear Data
+                </button>
             </div>
-            
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save Settings</button>
-        </form>
+            <div class="mt-6 pt-6 border-t border-gray-200 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <div class="mb-4 sm:mb-0">
+                    <h3 class="text-md font-medium text-gray-900">Delete Account</h3>
+                    <p class="text-sm text-gray-500">Permanently delete your account and all of your data.</p>
+                </div>
+                <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Delete Account
+                </button>
+            </div>
+        </div>
     </div>
 </div>
+
+<%- include('../layouts/footer'); %>

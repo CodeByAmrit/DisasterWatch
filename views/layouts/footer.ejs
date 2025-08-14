@@ -1,0 +1,51 @@
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Disaster Management System</h3>
+                    <p class="text-blue-200">Providing real-time disaster alerts and information to keep communities safe.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/dashboard" class="text-blue-200 hover:text-white">Public Dashboard</a></li>
+                        <li><a href="/map" class="text-blue-200 hover:text-white">Map View</a></li>
+                        <li><a href="/login" class="text-blue-200 hover:text-white">Admin Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> <a href="mailto:contact@disastermgmt.com" class="text-blue-200 hover:text-white">contact@disastermgmt.com</a></li>
+                        <li class="flex items-center"><i class="fas fa-phone mr-2"></i> <span class="text-blue-200">+1 (555) 123-4567</span></li>
+                        <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> <span class="text-blue-200">123 Safety Ave, Emergency City</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 mt-8 pt-6 text-center text-blue-200">
+                <p>&copy; <%= new Date().getFullYear() %> Disaster Management System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Flowbite JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <!-- Chart.js for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

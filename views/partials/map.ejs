@@ -1,42 +1,46 @@
-<div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <div class="flex items-center justify-between mb-4">
-        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Disaster Map</h5>
-    </div>
-    <div class="flow-root">
-        <div id="map" class="h-96 w-full rounded-lg"></div>
+<%- include('../layouts/header', { 
+    title: 'Map View',
+    isAuthenticated: false,
+    isAdmin: false,
+    userInitials: ''
+}); %>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h1 class="text-2xl font-bold text-gray-900">Disaster Map</h1>
+            <p class="mt-1 text-gray-600">Visual representation of active disasters</p>
+        </div>
+        <div class="p-4">
+            <div class="h-96 bg-gray-100 rounded-lg flex items-center justify-center">
+                <div class="text-center">
+                    <i class="fas fa-map-marked-alt text-5xl text-gray-400 mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900">Interactive Map</h3>
+                    <p class="mt-1 text-gray-600">Disaster locations would be displayed here</p>
+                </div>
+            </div>
+        </div>
+        <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+            <div class="flex justify-between items-center">
+                <div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 mr-2">
+                        <i class="fas fa-exclamation-triangle mr-1"></i> Severe
+                    </span>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 mr-2">
+                        <i class="fas fa-exclamation-circle mr-1"></i> Moderate
+                    </span>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        <i class="fas fa-info-circle mr-1"></i> Minor
+                    </span>
+                </div>
+                <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <i class="fas fa-download mr-2"></i> Export Data
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
-<script>
-    // Initialize map
-    const map = L.map('map').setView([20, 0], 2);
-    
-    // Add tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    
-    // Fetch and display alerts on map
-    fetch('/api/alerts/map/data')
-        .then(response => response.json())
-        .then(alerts => {
-            alerts.forEach(alert => {
-                const marker = L.marker([alert.latitude, alert.longitude]).addTo(map);
-                marker.bindPopup(`
-                    <b>${alert.title}</b><br>
-                    <span class="text-${getSeverityColor(alert.severity)}-600">${alert.severity}</span><br>
-                    ${alert.country}<br>
-                    <a href="/public/alert-details/${alert.id}" class="text-blue-600 hover:underline">View details</a>
-                `);
-            });
-        });
-    
-    function getSeverityColor(severity) {
-        switch(severity.toLowerCase()) {
-            case 'severe': return 'red';
-            case 'moderate': return 'orange';
-            case 'minor': return 'yellow';
-            default: return 'gray';
-        }
-    }
-</script>
+<%- include('../layouts/footer', { 
+    scripts: ['https://unpkg.com/leaflet@1.7.1/dist/leaflet.js', '/js/map.js']
+}); %>

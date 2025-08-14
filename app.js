@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const alertsRoutes = require('./routes/alerts');
 const countriesRoutes = require('./routes/countries');
+const web_router = require('./routes/web.js');
 
 app.use(express.json());
 
@@ -15,14 +16,14 @@ app.use('/api/countries', countriesRoutes);
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-app.get('/', (req, res) => {
-  res.render('dashboard'); // Main dashboard page
-});
+app.use('/', web_router);
 
 // Run every hour
 cron.schedule('0 * * * *', () => {
   console.log('⏳ Running disaster alerts sync...');
   syncAlerts();
 });
+
+// app.use('', (req, res) => res.status(404).render('404'));
 
 module.exports =  app;
