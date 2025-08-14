@@ -19,7 +19,7 @@ app.set('views', __dirname + '/views');
 app.use('/', web_router);
 
 // Run every hour
-cron.schedule('0 * * * *', () => {
+cron.schedule('*/10 * * * * *', () => {
   console.log('⏳ Running disaster alerts sync...');
   syncAlerts();
 });

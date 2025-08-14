@@ -28,5 +28,4 @@ router.get('/sync', async (req, res) => {
     res.status(500).json({ success: false, error: err.message || 'Sync failed' });
   }
 });
-
 module.exports = router;
