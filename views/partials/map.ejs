@@ -1,0 +1,42 @@
+<div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex items-center justify-between mb-4">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Disaster Map</h5>
+    </div>
+    <div class="flow-root">
+        <div id="map" class="h-96 w-full rounded-lg"></div>
+    </div>
+</div>
+
+<script>
+    // Initialize map
+    const map = L.map('map').setView([20, 0], 2);
+    
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    // Fetch and display alerts on map
+    fetch('/api/alerts/map/data')
+        .then(response => response.json())
+        .then(alerts => {
+            alerts.forEach(alert => {
+                const marker = L.marker([alert.latitude, alert.longitude]).addTo(map);
+                marker.bindPopup(`
+                    <b>${alert.title}</b><br>
+                    <span class="text-${getSeverityColor(alert.severity)}-600">${alert.severity}</span><br>
+                    ${alert.country}<br>
+                    <a href="/public/alert-details/${alert.id}" class="text-blue-600 hover:underline">View details</a>
+                `);
+            });
+        });
+    
+    function getSeverityColor(severity) {
+        switch(severity.toLowerCase()) {
+            case 'severe': return 'red';
+            case 'moderate': return 'orange';
+            case 'minor': return 'yellow';
+            default: return 'gray';
+        }
+    }
+</script>

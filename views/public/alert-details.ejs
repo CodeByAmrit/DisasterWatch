@@ -1,0 +1,67 @@
+<div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex justify-between items-center mb-4">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Alert Details</h5>
+        <span class="bg-<%= getSeverityColor(alert.severity) %>-100 text-<%= getSeverityColor(alert.severity) %>-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-<%= getSeverityColor(alert.severity) %>-900 dark:text-<%= getSeverityColor(alert.severity) %>-300">
+            <%= alert.severity %>
+        </span>
+    </div>
+    
+    <div class="flow-root">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><%= alert.title %></h3>
+                <p class="text-gray-500 dark:text-gray-400 mt-2"><%= alert.description %></p>
+                
+                <div class="mt-4">
+                    <h4 class="text-md font-semibold text-gray-900 dark:text-white">Details</h4>
+                    <ul class="mt-2 space-y-2">
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300"><%= alert.country %></span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300"><%= new Date(alert.date).toLocaleDateString() %></span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-gray-600 dark:text-gray-300"><%= new Date(alert.lastUpdate).toLocaleString() %></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div>
+                <div id="alert-map" class="h-64 w-full rounded-lg"></div>
+            </div>
+        </div>
+        
+        <div class="mt-6">
+            <h4 class="text-md font-semibold text-gray-900 dark:text-white">Recommended Actions</h4>
+            <div class="mt-2 p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400">
+                <%= alert.instructions %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Initialize map for this alert
+    const alertMap = L.map('alert-map').setView([<%= alert.latitude %>, <%= alert.longitude %>], 8);
+    
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(alertMap);
+    
+    // Add marker for this alert
+    const marker = L.marker([<%= alert.latitude %>, <%= alert.longitude %>]).addTo(alertMap);
+    marker.bindPopup(`<b><%= alert.title %></b><br><%= alert.country %>`);
+</script>

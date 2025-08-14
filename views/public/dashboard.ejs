@@ -1,0 +1,131 @@
+<%- include('../partials/map') %>
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center">
+            <div class="inline-flex items-center justify-center p-2 bg-red-100 rounded-lg dark:bg-red-900">
+                <svg class="w-6 h-6 text-red-600 dark:text-red-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Severe Alerts</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= alertsCount.severe %></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center">
+            <div class="inline-flex items-center justify-center p-2 bg-orange-100 rounded-lg dark:bg-orange-900">
+                <svg class="w-6 h-6 text-orange-600 dark:text-orange-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Moderate Alerts</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= alertsCount.moderate %></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center">
+            <div class="inline-flex items-center justify-center p-2 bg-yellow-100 rounded-lg dark:bg-yellow-900">
+                <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Minor Alerts</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= alertsCount.minor %></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex items-center">
+            <div class="inline-flex items-center justify-center p-2 bg-blue-100 rounded-lg dark:bg-blue-900">
+                <svg class="w-6 h-6 text-blue-600 dark:text-blue-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Countries</p>
+                <p class="text-2xl font-bold text-gray-900 dark:text-white"><%= countriesCount %></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-6">
+    <div class="flex items-center justify-between mb-4">
+        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Recent Alerts</h5>
+        <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+            View all
+        </a>
+    </div>
+    
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-6 py-3">Country</th>
+                    <th scope="col" class="px-6 py-3">Severity</th>
+                    <th scope="col" class="px-6 py-3">Date</th>
+                    <th scope="col" class="px-6 py-3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% alerts.forEach(alert => { %>
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <%= alert.title %>
+                        </th>
+                        <td class="px-6 py-4"><%= alert.country %></td>
+                        <td class="px-6 py-4">
+                            <span class="bg-<%= getSeverityColor(alert.severity) %>-100 text-<%= getSeverityColor(alert.severity) %>-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-<%= getSeverityColor(alert.severity) %>-900 dark:text-<%= getSeverityColor(alert.severity) %>-300">
+                                <%= alert.severity %>
+                            </span>
+                        </td>
+                        <td class="px-6 py-4"><%= new Date(alert.date).toLocaleDateString() %></td>
+                        <td class="px-6 py-4">
+                            <a href="/public/alert-details/<%= alert.id %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    
+    <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+            Showing <span class="font-semibold text-gray-900 dark:text-white"><%= pagination.from %></span> to <span class="font-semibold text-gray-900 dark:text-white"><%= pagination.to %></span> of <span class="font-semibold text-gray-900 dark:text-white"><%= pagination.total %></span>
+        </span>
+        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+            <li>
+                <a href="?page=<%= pagination.prevPage %>" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+            </li>
+            <% for (let i = 1; i <= pagination.totalPages; i++) { %>
+                <li>
+                    <a href="?page=<%= i %>" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white <%= pagination.currentPage === i ? 'text-blue-600 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : '' %>">
+                        <%= i %>
+                    </a>
+                </li>
+            <% } %>
+            <li>
+                <a href="?page=<%= pagination.nextPage %>" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<% function getSeverityColor(severity) {
+    switch(severity.toLowerCase()) {
+        case 'severe': return 'red';
+        case 'moderate': return 'orange';
+        case 'minor': return 'yellow';
+        default: return 'gray';
+    }
+} %>
