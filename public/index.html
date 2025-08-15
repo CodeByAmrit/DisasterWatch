@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DisasterWatch | Comprehensive Disaster Management System</title>
+    <meta name="description" content="Real-time disaster monitoring, alerts, and management system for public safety">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #065f46 100%);
+        }
+        .disaster-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .map-container {
+            height: 400px;
+            background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=20,0&zoom=2&scale=1&size=1200x400&maptype=roadmap&key=YOUR_API_KEY&format=png&visual_refresh=true');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-shield-alt text-blue-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">Disaster<span class="text-blue-600">Watch</span></span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Alerts</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Resources</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Preparedness</a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
+                    <a href="/dashboard" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
+                        Public Dashboard
+                    </a>
+                    <a href="/admin/dashboard" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
+                        Admin Portal
+                    </a>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient text-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                    Real-time Disaster Monitoring & Response
+                </h1>
+                <p class="mt-6 max-w-lg mx-auto text-xl">
+                    Comprehensive disaster management system providing alerts, resources, and coordination tools for emergency situations.
+                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="/dashboard" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-700 bg-white hover:bg-blue-50">
+                        View Public Dashboard
+                    </a>
+                    <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-800 bg-opacity-60 hover:bg-opacity-70">
+                        Emergency Contacts
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Alerts Section -->
+    <div class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Current Situations</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Active Disaster Alerts
+                </p>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Alert Card 1 -->
+                <div class="disaster-card transition duration-300 ease-in-out bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-red-600 p-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-fire text-white text-2xl mr-2"></i>
+                            <h3 class="text-lg font-bold text-white">Wildfire Alert</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Northern California region. Evacuation orders for zones 4A-4D.</p>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span><i class="fas fa-clock mr-1"></i> Updated 45 min ago</span>
+                            <span><i class="fas fa-map-marker-alt mr-1"></i> 12.5 miles away</span>
+                        </div>
+                        <a href="#" class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800">
+                            View details
+                            <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Alert Card 2 -->
+                <div class="disaster-card transition duration-300 ease-in-out bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-blue-600 p-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-water text-white text-2xl mr-2"></i>
+                            <h3 class="text-lg font-bold text-white">Flood Warning</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Mississippi River basin. Expected to crest 3.2 feet above flood stage.</p>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span><i class="fas fa-clock mr-1"></i> Updated 2 hours ago</span>
+                            <span><i class="fas fa-map-marker-alt mr-1"></i> 25 miles away</span>
+                        </div>
+                        <a href="#" class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800">
+                            View details
+                            <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Alert Card 3 -->
+                <div class="disaster-card transition duration-300 ease-in-out bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-yellow-600 p-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-wind text-white text-2xl mr-2"></i>
+                            <h3 class="text-lg font-bold text-white">Hurricane Watch</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Category 3 hurricane approaching Gulf Coast. Landfall expected in 48 hours.</p>
+                        <div class="flex justify-between text-sm text-gray-500">
+                            <span><i class="fas fa-clock mr-1"></i> Updated 3 hours ago</span>
+                            <span><i class="fas fa-map-marker-alt mr-1"></i> 150 miles away</span>
+                        </div>
+                        <a href="#" class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800">
+                            View details
+                            <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <a href="/dashboard" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                    View All Alerts on Dashboard
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Disaster Map -->
+    <div class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-8">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Global Monitoring</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Real-time Disaster Map
+                </p>
+            </div>
+            
+            <div class="map-container rounded-xl shadow-xl overflow-hidden">
+                <!-- This would be replaced with an actual interactive map component -->
+                <div class="h-full w-full bg-gray-200 flex items-center justify-center">
+                    <div class="text-center p-8">
+                        <i class="fas fa-globe-americas text-5xl text-gray-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-700">Interactive Disaster Map</h3>
+                        <p class="text-gray-600 mt-2">Real-time visualization of active disasters worldwide</p>
+                        <a href="/dashboard" class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            View Full Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources Section -->
+    <div class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-12">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Preparedness</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Disaster Preparedness Resources
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-3">
+                <!-- Resource 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 text-blue-600 mb-4">
+                        <i class="fas fa-book text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Emergency Plans</h3>
+                    <p class="text-gray-500">Step-by-step guides for different disaster scenarios and how to prepare.</p>
+                    <a href="#" class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800">
+                        Learn more
+                        <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Resource 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 text-green-600 mb-4">
+                        <i class="fas fa-phone-alt text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Emergency Contacts</h3>
+                    <p class="text-gray-500">Critical phone numbers and contacts for your local area.</p>
+                    <a href="#" class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800">
+                        View contacts
+                        <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Resource 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-100 text-purple-600 mb-4">
+                        <i class="fas fa-first-aid text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">First Aid Guides</h3>
+                    <p class="text-gray-500">Life-saving medical information for emergency situations.</p>
+                    <a href="#" class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800">
+                        Access guides
+                        <i class="fas fa-chevron-right ml-1 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin CTA Section -->
+    <div class="bg-blue-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                        <span class="block">Emergency Management Professionals</span>
+                    </h2>
+                    <p class="mt-3 max-w-3xl text-lg leading-6 text-blue-100">
+                        Access advanced tools for disaster coordination, resource allocation, and real-time response management.
+                    </p>
+                </div>
+                <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0 justify-end">
+                    <div class="inline-flex rounded-md shadow">
+                        <a href="/admin/dashboard" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-blue-800 bg-white hover:bg-blue-50">
+                            <i class="fas fa-lock mr-2"></i> Access Admin Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">DisasterWatch</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Mission</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Team</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Preparedness</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Recovery</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Volunteer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Cookies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Connect</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Twitter</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Facebook</a></li>
+                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Emergency Numbers</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 flex justify-between">
+                <p class="text-base text-gray-400">&copy; 2023 DisasterWatch. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="/dashboard" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">Public Dashboard</span>
+                        <i class="fas fa-chart-line"></i>
+                    </a>
+                    <a href="/admin/dashboard" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">Admin Dashboard</span>
+                        <i class="fas fa-user-shield"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile menu (hidden by default) -->
+    <div class="hidden fixed inset-0 bg-white z-50" id="mobile-menu">
+        <div class="p-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-blue-600 text-2xl mr-2"></i>
+                    <span class="text-xl font-bold text-gray-900">Disaster<span class="text-blue-600">Watch</span></span>
+                </div>
+                <button type="button" class="text-gray-500 hover:text-gray-600">
+                    <span class="sr-only">Close menu</span>
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div class="mt-6 space-y-1">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">Home</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:bg-gray-50">Alerts</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:bg-gray-50">Resources</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:bg-gray-50">Preparedness</a>
+            </div>
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <div class="space-y-2">
+                    <a href="/dashboard" class="block w-full px-4 py-2 text-center rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700">
+                        Public Dashboard
+                    </a>
+                    <a href="/admin/dashboard" class="block w-full px-4 py-2 text-center rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700">
+                        Admin Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.querySelector('nav button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const closeButton = mobileMenu.querySelector('button');
+            closeButton.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
